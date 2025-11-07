@@ -1,8 +1,8 @@
 package uk.nktnet.webviewkiosk.config
 
 object Constants {
-    const val APP_NAME = "Webview Kiosk"
-    const val WEBSITE_URL = "https://webviewkiosk.nktnet.uk"
+    const val APP_NAME = "Alligator Navigator"
+    const val WEBSITE_URL = "https://portal.swr.work/tv"
     const val GITHUB_URL = "https://github.com/nktnet1/webview-kiosk"
     const val DEFAULT_SEARCH_PROVIDER_URL = "https://google.com/search?q="
 

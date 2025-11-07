@@ -121,7 +121,7 @@ class UserSettings(val context: Context) {
         restrictions,
         prefs,
         UserSettingsKeys.WebBrowsing.KIOSK_CONTROL_PANEL_REGION,
-        KioskControlPanelRegionOption.TOP_LEFT.name,
+        KioskControlPanelRegionOption.DISABLED.name,
         fromString = KioskControlPanelRegionOption::fromString
     )
     var searchProviderUrl by stringPref(
@@ -161,7 +161,7 @@ class UserSettings(val context: Context) {
         restrictions,
         prefs,
         UserSettingsKeys.WebEngine.ACCEPT_THIRD_PARTY_COOKIES,
-        false
+        true
     )
     var cacheMode by intEnumPref(
         restrictions,
@@ -190,7 +190,7 @@ class UserSettings(val context: Context) {
         UserSettingsKeys.WebEngine.LOAD_WITH_OVERVIEW_MODE,
         true
     )
-    var enableZoom by booleanPref(restrictions, prefs, UserSettingsKeys.WebEngine.ENABLE_ZOOM, true)
+    var enableZoom by booleanPref(restrictions, prefs, UserSettingsKeys.WebEngine.ENABLE_ZOOM, false)
     var displayZoomControls by booleanPref(
         restrictions,
         prefs,
@@ -207,7 +207,7 @@ class UserSettings(val context: Context) {
         restrictions,
         prefs,
         UserSettingsKeys.WebEngine.ALLOW_UNIVERSAL_ACCESS_FROM_FILE_URLS,
-        false
+        true
     )
     var mediaPlaybackRequiresUserGesture by booleanPref(
         restrictions,
@@ -219,7 +219,7 @@ class UserSettings(val context: Context) {
         restrictions,
         prefs,
         UserSettingsKeys.WebEngine.SSL_ERROR_MODE,
-        SslErrorModeOption.BLOCK.name,
+        SslErrorModeOption.PROCEED.name,
         fromString = SslErrorModeOption::fromString
     )
 
@@ -228,7 +228,7 @@ class UserSettings(val context: Context) {
         restrictions,
         prefs,
         UserSettingsKeys.WebLifecycle.LOCK_ON_LAUNCH,
-        false
+        true
     )
     var resetOnLaunch by booleanPref(
         restrictions,
@@ -261,21 +261,21 @@ class UserSettings(val context: Context) {
         restrictions,
         prefs,
         UserSettingsKeys.Appearance.ADDRESS_BAR_MODE,
-        AddressBarOption.HIDDEN_WHEN_LOCKED.name,
+        AddressBarOption.HIDDEN.name,
         fromString = AddressBarOption::fromString
     )
     var webViewInset by stringEnumPref(
         restrictions,
         prefs,
         UserSettingsKeys.Appearance.WEBVIEW_INSET,
-        WebViewInset.SystemBars.name,
+        WebViewInset.None.name,
         fromString = WebViewInset::fromString
     )
     var immersiveMode by stringEnumPref(
         restrictions,
         prefs,
         UserSettingsKeys.Appearance.IMMERSIVE_MODE,
-        ImmersiveModeOption.ONLY_WHEN_LOCKED.name,
+        ImmersiveModeOption.ALWAYS_ON.name,
         fromString = ImmersiveModeOption::fromString
     )
     var blockedMessage by stringPref(
@@ -290,7 +290,7 @@ class UserSettings(val context: Context) {
         restrictions,
         prefs,
         UserSettingsKeys.Device.KEEP_SCREEN_ON,
-        false
+        true
     )
     var deviceRotation by stringEnumPref(
         restrictions,
