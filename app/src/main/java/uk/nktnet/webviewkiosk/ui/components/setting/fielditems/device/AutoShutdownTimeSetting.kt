@@ -33,13 +33,13 @@ fun AutoShutdownTimeSetting() {
             Leave empty to disable auto-shutdown.
         """.trimIndent(),
         placeholder = "e.g. 23:00",
-        initialValue = userSettings.autoShutdownTime ?: "",
+        initialValue = userSettings.autoShutdownTime,
         isMultiline = false,
         restricted = userSettings.isRestricted(UserSettingsKeys.Device.AUTO_SHUTDOWN_TIME),
         validator = timeValidator,
         validationMessage = "Please enter a valid time in HH:MM format (00:00 - 23:59)",
         onSave = { 
-            userSettings.autoShutdownTime = it.ifEmpty { null }
+            userSettings.autoShutdownTime = it
             // Reschedule auto-shutdown with the new time
             uk.nktnet.webviewkiosk.handlers.AutoShutdownReceiver.scheduleAutoShutdown(context)
         }

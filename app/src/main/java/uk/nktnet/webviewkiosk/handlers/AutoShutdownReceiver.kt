@@ -19,8 +19,9 @@ class AutoShutdownReceiver : BroadcastReceiver() {
         try {
             // Send the device to sleep mode (turn off screen)
             // Note: goToSleep() is deprecated but remains the standard approach for kiosk apps
-            // to put devices to sleep. Alternative approaches require device admin privileges
-            // which are more invasive and complex to set up.
+            // to put devices to sleep. It works without special permissions on most devices,
+            // especially TV/kiosk devices. DEVICE_POWER is a system permission that normal
+            // apps cannot obtain. The WAKE_LOCK permission we have is sufficient.
             @Suppress("DEPRECATION")
             powerManager.goToSleep(android.os.SystemClock.uptimeMillis())
             
