@@ -138,7 +138,7 @@ fun SettingsHeaderMenu(
                             }
                         )
                         DropdownMenuItem(
-                            text = { Text("Settings", color = tintColor) },
+                            text = { Text("Device Settings", color = tintColor) },
                             onClick = {
                                 showMenu = false
                                 val intent = Intent(Settings.ACTION_SETTINGS)
@@ -167,7 +167,7 @@ fun SettingsHeaderMenu(
                             }
                         )
                         DropdownMenuItem(
-                            text = { Text("Help", color = tintColor) },
+                            text = { Text("Connect to TV", color = tintColor) },
                             onClick = {
                                 showMenu = false
                                 val intent = Intent(Intent.ACTION_VIEW, Constants.WEBSITE_URL.toUri())
