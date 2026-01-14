@@ -40,6 +40,8 @@ fun AutoShutdownTimeSetting() {
         validationMessage = "Please enter a valid time in HH:MM format (00:00 - 23:59)",
         onSave = { 
             userSettings.autoShutdownTime = it.ifEmpty { null }
+            // Reschedule auto-shutdown with the new time
+            uk.nktnet.webviewkiosk.handlers.AutoShutdownReceiver.scheduleAutoShutdown(context)
         }
     )
 }

@@ -17,19 +17,7 @@ class AutoShutdownReceiver : BroadcastReceiver() {
         // Request device to go to sleep (turn off screen)
         val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
         try {
-            // For TV devices, this will put the device to sleep
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
-                // For API 28+, we can only turn off the screen, not fully shut down without root
-                // The device will go to sleep mode
-                val wakeLock = powerManager.newWakeLock(
-                    PowerManager.SCREEN_BRIGHT_WAKE_LOCK or PowerManager.ACQUIRE_CAUSES_WAKEUP,
-                    "AutoShutdown:WakeLock"
-                )
-                wakeLock.acquire(100)
-                wakeLock.release()
-            }
-            
-            // Alternative: Send the device to sleep
+            // Send the device to sleep mode (turn off screen)
             @Suppress("DEPRECATION")
             powerManager.goToSleep(android.os.SystemClock.uptimeMillis())
             
