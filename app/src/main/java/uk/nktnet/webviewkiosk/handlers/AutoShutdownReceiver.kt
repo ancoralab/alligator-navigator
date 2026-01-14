@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.PowerManager
+import android.os.SystemClock
 import android.util.Log
 import uk.nktnet.webviewkiosk.config.UserSettings
 import java.util.Calendar
@@ -23,7 +24,7 @@ class AutoShutdownReceiver : BroadcastReceiver() {
             // especially TV/kiosk devices. DEVICE_POWER is a system permission that normal
             // apps cannot obtain. The WAKE_LOCK permission we have is sufficient.
             @Suppress("DEPRECATION")
-            powerManager.goToSleep(android.os.SystemClock.uptimeMillis())
+            powerManager.goToSleep(SystemClock.uptimeMillis())
             
         } catch (e: Exception) {
             Log.e("AutoShutdownReceiver", "Failed to shutdown: ${e.message}")

@@ -5,6 +5,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import uk.nktnet.webviewkiosk.config.UserSettings
 import uk.nktnet.webviewkiosk.config.UserSettingsKeys
+import uk.nktnet.webviewkiosk.handlers.AutoShutdownReceiver
 import uk.nktnet.webviewkiosk.ui.components.setting.fields.TextSettingFieldItem
 
 @Composable
@@ -41,7 +42,7 @@ fun AutoShutdownTimeSetting() {
         onSave = { 
             userSettings.autoShutdownTime = it
             // Reschedule auto-shutdown with the new time
-            uk.nktnet.webviewkiosk.handlers.AutoShutdownReceiver.scheduleAutoShutdown(context)
+            AutoShutdownReceiver.scheduleAutoShutdown(context)
         }
     )
 }
