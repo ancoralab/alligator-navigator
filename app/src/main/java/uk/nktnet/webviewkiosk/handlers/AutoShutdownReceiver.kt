@@ -54,7 +54,7 @@ class AutoShutdownReceiver : BroadcastReceiver() {
             // Cancel any existing alarm
             alarmManager.cancel(pendingIntent)
             
-            if (shutdownTime.isNullOrEmpty()) {
+            if (shutdownTime.isEmpty()) {
                 Log.d("AutoShutdownReceiver", "Auto-shutdown disabled")
                 return
             }

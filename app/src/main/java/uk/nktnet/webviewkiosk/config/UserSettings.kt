@@ -503,7 +503,7 @@ class UserSettings(val context: Context) {
             unlockAuthRequirement = UnlockAuthRequirementOption.fromString(
                 json.optString(UserSettingsKeys.Device.UNLOCK_AUTH_REQUIREMENT, unlockAuthRequirement.name)
             )
-            autoShutdownTime = json.optString(UserSettingsKeys.Device.AUTO_SHUTDOWN_TIME, autoShutdownTime)
+            autoShutdownTime = json.optString(UserSettingsKeys.Device.AUTO_SHUTDOWN_TIME, "")
 
             applyAppTheme = json.optBoolean(UserSettingsKeys.JsScripts.APPLY_APP_THEME, applyAppTheme)
             applyDesktopViewportWidth = json.optInt(UserSettingsKeys.JsScripts.APPLY_DESKTOP_VIEWPORT_WIDTH, applyDesktopViewportWidth)

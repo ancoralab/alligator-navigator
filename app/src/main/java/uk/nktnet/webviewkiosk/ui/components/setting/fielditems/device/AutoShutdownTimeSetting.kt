@@ -16,8 +16,8 @@ fun AutoShutdownTimeSetting() {
         if (input.isEmpty()) {
             true // Empty means disabled
         } else {
-            // Validate HH:MM format (24-hour)
-            val regex = Regex("^([01]?[0-9]|2[0-3]):([0-5][0-9])$")
+            // Validate HH:MM format (24-hour) - requires zero-padded hours (00-23)
+            val regex = Regex("^([0-1][0-9]|2[0-3]):([0-5][0-9])$")
             regex.matches(input)
         }
     }
