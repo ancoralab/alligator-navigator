@@ -18,6 +18,9 @@ class AutoShutdownReceiver : BroadcastReceiver() {
         val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
         try {
             // Send the device to sleep mode (turn off screen)
+            // Note: goToSleep() is deprecated but remains the standard approach for kiosk apps
+            // to put devices to sleep. Alternative approaches require device admin privileges
+            // which are more invasive and complex to set up.
             @Suppress("DEPRECATION")
             powerManager.goToSleep(android.os.SystemClock.uptimeMillis())
             
@@ -62,8 +65,18 @@ class AutoShutdownReceiver : BroadcastReceiver() {
                 return
             }
             
-            val hour = timeParts[0].toIntOrNull() ?: return
-            val minute = timeParts[1].toIntOrNull() ?: return
+            val hour = timeParts[0].toIntOrNull()
+            val minute = timeParts[1].toIntOrNull()
+            
+            if (hour == null || minute == null) {
+                Log.e("AutoShutdownReceiver", "Failed to parse time: $shutdownTime (hour=$hour, minute=$minute)")
+                return
+            }
+            
+            if (hour !in 0..23 || minute !in 0..59) {
+                Log.e("AutoShutdownReceiver", "Invalid time values: hour=$hour, minute=$minute")
+                return
+            }
             
             // Schedule for today or tomorrow depending on current time
             val calendar = Calendar.getInstance().apply {
