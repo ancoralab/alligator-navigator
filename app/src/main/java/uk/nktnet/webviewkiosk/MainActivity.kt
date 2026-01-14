@@ -27,6 +27,7 @@ import uk.nktnet.webviewkiosk.auth.BiometricPromptManager
 import uk.nktnet.webviewkiosk.config.*
 import uk.nktnet.webviewkiosk.config.option.DeviceRotationOption
 import uk.nktnet.webviewkiosk.config.option.ThemeOption
+import uk.nktnet.webviewkiosk.handlers.AutoShutdownReceiver
 import uk.nktnet.webviewkiosk.handlers.backbutton.BackButtonService
 import uk.nktnet.webviewkiosk.main.SetupNavHost
 import uk.nktnet.webviewkiosk.main.applyDeviceRotation
@@ -115,6 +116,9 @@ class MainActivity : AppCompatActivity() {
         if (userSettings.lockOnLaunch) {
             tryLockTask(this, showToast)
         }
+
+        // Schedule auto-shutdown if configured
+        AutoShutdownReceiver.scheduleAutoShutdown(this)
 
         setContent {
             val navController = rememberNavController()
@@ -210,6 +214,9 @@ class MainActivity : AppCompatActivity() {
         themeState.value = userSettings.theme
         keepScreenOnState.value = userSettings.keepScreenOn
         deviceRotationState.value = userSettings.deviceRotation
+        
+        // Reschedule auto-shutdown when settings are updated
+        AutoShutdownReceiver.scheduleAutoShutdown(context)
     }
 
     override fun onStart() {

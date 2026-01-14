@@ -70,6 +70,7 @@ object UserSettingsKeys {
         const val BACK_BUTTON_HOLD_ACTION = "device.back_button_hold_action"
         const val CUSTOM_UNLOCK_SHORTCUT = "device.custom_unlock_shortcut"
         const val UNLOCK_AUTH_REQUIREMENT = "device.unlock_auth_requirement"
+        const val AUTO_SHUTDOWN_TIME = "device.auto_shutdown_time"
     }
 
     object JsScripts {

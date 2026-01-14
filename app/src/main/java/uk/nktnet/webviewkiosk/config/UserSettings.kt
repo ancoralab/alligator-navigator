@@ -331,6 +331,11 @@ class UserSettings(val context: Context) {
         UnlockAuthRequirementOption.DEFAULT.name,
         fromString = UnlockAuthRequirementOption::fromString
     )
+    var autoShutdownTime by stringPrefOptional(
+        restrictions,
+        prefs,
+        UserSettingsKeys.Device.AUTO_SHUTDOWN_TIME
+    )
 
     // JS Scripts
     var applyAppTheme by booleanPref(
@@ -414,6 +419,7 @@ class UserSettings(val context: Context) {
             put(UserSettingsKeys.Device.BACK_BUTTON_HOLD_ACTION, backButtonHoldAction.name)
             put(UserSettingsKeys.Device.CUSTOM_UNLOCK_SHORTCUT, customUnlockShortcut)
             put(UserSettingsKeys.Device.UNLOCK_AUTH_REQUIREMENT, unlockAuthRequirement.name)
+            put(UserSettingsKeys.Device.AUTO_SHUTDOWN_TIME, autoShutdownTime)
 
             put(UserSettingsKeys.JsScripts.APPLY_APP_THEME, applyAppTheme)
             put(UserSettingsKeys.JsScripts.APPLY_DESKTOP_VIEWPORT_WIDTH, applyDesktopViewportWidth)
@@ -497,6 +503,7 @@ class UserSettings(val context: Context) {
             unlockAuthRequirement = UnlockAuthRequirementOption.fromString(
                 json.optString(UserSettingsKeys.Device.UNLOCK_AUTH_REQUIREMENT, unlockAuthRequirement.name)
             )
+            autoShutdownTime = json.optString(UserSettingsKeys.Device.AUTO_SHUTDOWN_TIME, autoShutdownTime)
 
             applyAppTheme = json.optBoolean(UserSettingsKeys.JsScripts.APPLY_APP_THEME, applyAppTheme)
             applyDesktopViewportWidth = json.optInt(UserSettingsKeys.JsScripts.APPLY_DESKTOP_VIEWPORT_WIDTH, applyDesktopViewportWidth)

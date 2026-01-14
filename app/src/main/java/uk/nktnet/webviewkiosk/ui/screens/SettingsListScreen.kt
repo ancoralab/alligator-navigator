@@ -51,7 +51,7 @@ fun SettingsListScreen(
         ),
         Triple(
             "Device",
-            "Timeout, rotation, camera, microphone, location, unlock shortcut",
+            "Timeout, rotation, camera, microphone, location, unlock shortcut, auto-shutdown",
             Screen.SettingsDevice.route
         ),
         Triple(
