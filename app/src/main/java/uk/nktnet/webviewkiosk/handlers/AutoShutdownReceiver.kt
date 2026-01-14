@@ -2,12 +2,13 @@ package uk.nktnet.webviewkiosk.handlers
 
 import android.app.AlarmManager
 import android.app.PendingIntent
+import android.app.admin.DevicePolicyManager
 import android.content.BroadcastReceiver
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.os.PowerManager
-import android.os.SystemClock
 import android.util.Log
+import uk.nktnet.webviewkiosk.WebviewKioskAdminReceiver
 import uk.nktnet.webviewkiosk.config.UserSettings
 import java.util.Calendar
 
@@ -15,16 +16,20 @@ class AutoShutdownReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         Log.d("AutoShutdownReceiver", "Auto-shutdown triggered")
         
-        // Request device to go to sleep (turn off screen)
-        val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
         try {
-            // Send the device to sleep mode (turn off screen)
-            // Note: goToSleep() is deprecated but remains the standard approach for kiosk apps
-            // to put devices to sleep. It works without special permissions on most devices,
-            // especially TV/kiosk devices. DEVICE_POWER is a system permission that normal
-            // apps cannot obtain. The WAKE_LOCK permission we have is sufficient.
-            @Suppress("DEPRECATION")
-            powerManager.goToSleep(SystemClock.uptimeMillis())
+            // Use DevicePolicyManager to lock the device (turns off screen)
+            // This is the proper approach for kiosk apps with device admin privileges
+            val dpm = context.getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
+            val adminComponent = ComponentName(context.packageName, WebviewKioskAdminReceiver::class.java.name)
+            
+            // Check if this app is a device admin
+            if (dpm.isAdminActive(adminComponent)) {
+                // Lock the device immediately (turns off screen)
+                dpm.lockNow()
+                Log.d("AutoShutdownReceiver", "Device locked successfully")
+            } else {
+                Log.w("AutoShutdownReceiver", "App is not a device admin, cannot lock device")
+            }
             
         } catch (e: Exception) {
             Log.e("AutoShutdownReceiver", "Failed to shutdown: ${e.message}")
